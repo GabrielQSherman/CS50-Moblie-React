@@ -23,6 +23,10 @@ function newTodo() {
     //add one to number tracking values
     itemCountSpan.innerText = parseInt(itemCountSpan.innerText) + 1
     uncheckedCountSpan.innerText = parseInt(uncheckedCountSpan.innerText) + 1
+
+    //update visual based on updated values
+    updateCompletionBar()
+
       //create elements
           div = document.createElement('div'),
 
@@ -69,6 +73,8 @@ function checkboxClicked () {
 
   }
 
+  updateCompletionBar()
+
 }
 
 function checkboxDelete () {
@@ -78,5 +84,17 @@ function checkboxDelete () {
       }
       itemCountSpan.innerText = parseInt(itemCountSpan.innerText) - 1
 
+      //update visual once values update
+      updateCompletionBar()
+
       this.parentElement.remove()
+}
+
+function updateCompletionBar() {
+  const total = parseInt(itemCountSpan.innerText);
+  const complete = total - parseInt(uncheckedCountSpan.innerText);
+  const percent = Math.round(complete/total * 100);
+  const bar = taskPercent;
+
+    bar.style.width = `${percent}%`;
 }
