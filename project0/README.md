@@ -1,5 +1,7 @@
 # Gabriel Sherman CS50 Todo List 
 
+## First Attempt in Vanilla JS
+
 - I started this challenge by using prompt() to get user input and storing that string in a variable
 
 - Then I needed to check if the value is null, meaning nothing was entered, since this mean nothing should happen.
@@ -14,8 +16,11 @@
 
 - Once the elements were in I need to set up event listeners for the buttons and script all the neccecary logic
 
+- One last addition I made was to visualize the percentage of tasks complete. This was done with two divs. One parent and one child div. The parent div would take up 100% width of its parent and serve a container for a smaller green bar whoes width would reflect the percentage of task complete. The only thing that needs to be updated is the inner-div's width.
+I created a simple function that does that called 'updateCompletionBar' which gathers info about the tasks,
+then creates an integer to represent the percent of tasks complete, and updates the taskPercent element's width accordingly
+
 ## Other things I wanted to add in but are just extra and time consuming
-    - A progress bar that would reflex the percentage of task checked off
     - A better system to take user input than a prompt 
 
 a prompt was the quickest to implement so that was my first choice
