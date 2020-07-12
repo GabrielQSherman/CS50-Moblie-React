@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-const currentDate = new Date().toString(); 
+const currentDate = new Date().toString().substring(0,24); 
 
 export default class Timer extends React.Component {
 
@@ -18,7 +18,7 @@ export default class Timer extends React.Component {
         const date = new Date().toString();
 
         this.setState( () => ({
-            dateNow: date.substring(0,date.length-15)
+            dateNow: date.substring(0,24)
         }))
 
     }
@@ -34,7 +34,8 @@ export default class Timer extends React.Component {
     render() {
         return (
             <View style={{...styles.container}}>
-                <Text>{this.state.dateNow}</Text>
+                <Text style={{...styles.text}}>{this.state.dateNow}</Text>
+                <Button title='Press'/>
             </View>
         );
     }
@@ -43,8 +44,14 @@ export default class Timer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    margin: 100
   },
+
+  text: {
+    color: 'white',
+    fontSize: 50
+  }
 });

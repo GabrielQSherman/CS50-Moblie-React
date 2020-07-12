@@ -6,8 +6,8 @@ import Timer from './Timer';
 export default function App() {
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" />
       <Timer />
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -15,7 +15,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
