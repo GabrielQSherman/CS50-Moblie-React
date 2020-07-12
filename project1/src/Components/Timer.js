@@ -11,6 +11,7 @@ export default class TimerContainer extends React.Component {
             timerRunning: false,
             dateNow: currentDate,
             display: false,
+            doingWork: true,
             displayMsg: 'Show',
             timerTime: 0,
             workTime: 0,
@@ -19,10 +20,28 @@ export default class TimerContainer extends React.Component {
     }
 
     updateDate = () => {
-        const date = new Date().toString();
+        const date = new Date().toString(),
+              
+              resetTime 
+                = this.state.doingWork 
+                ? this.state.breakTime 
+                : this.state.workTime;
+
+        let nextTime, switchTask;
+
+            if (this.state.timerTime < 1 && this.state.timerRunning) {
+                nextTime = resetTime
+                switchTask = true
+            } else if (this.state.timerRunning) {
+                nextTime = this.state.timerTime-1 
+            } else {
+                nextTime = this.state.timerTime
+            }
+
         this.setState( () => ({
             dateNow: date.substring(0,24),
-            timerTime: this.state.timerRunning  && this.state.timerTime > 0 ? this.state.timerTime-1 : this.state.timerTime
+            timerTime: nextTime,
+            doingWork: switchTask ? !this.state.doingWork : this.state.doingWork
         }))
     }
 
@@ -37,7 +56,8 @@ export default class TimerContainer extends React.Component {
     resetTimer = () => {
         this.setState( () => ({
             timerTime: 0,
-            timerRunning: Boolean(false)
+            timerRunning: false,
+            doingWork: true
         }))
     }
 
@@ -45,6 +65,18 @@ export default class TimerContainer extends React.Component {
         this.setState( () => ({
             timerTime: !this.state.timerRunning ? this.state.workTime : this.state.timerTime,
             timerRunning: !this.state.timerRunning,
+        }))
+    }
+
+    workTime = (value) => {
+        this.setState( () => ({
+            workTime: value
+        }))
+    }
+
+    breakTime = (value) => {
+        this.setState( () => ({
+            breakTime: value
         }))
     }
 
@@ -59,9 +91,6 @@ export default class TimerContainer extends React.Component {
     render() {
         return (
             <View style={{...styles.container}}>
-                <Text style={{...styles.text, fontSize: 45, textAlign: "center"}}>
-                    {this.state.dateNow}
-                </Text>
                 <Button 
                     onPress={()=>this.toggleDisplay()} 
                     title={this.state.displayMsg}
@@ -82,6 +111,7 @@ export default class TimerContainer extends React.Component {
                             placeholder="Enter Work Time"
                             numeric value   
                             keyboardType={'numeric'} 
+                            onChangeText={(val)=>this.workTime(val)}
                         />
 
                         <TextInput 
@@ -89,6 +119,7 @@ export default class TimerContainer extends React.Component {
                             placeholder="Enter Break Time"
                             numeric value   
                             keyboardType={'numeric'} 
+                            onChangeText={(val)=>this.breakTime(val)}
                         />
 
                         <View
@@ -106,7 +137,11 @@ export default class TimerContainer extends React.Component {
 
                     </ScrollView>
                 )
-                : null}
+                : (
+                    <Text style={{...styles.text, fontSize: 45, textAlign: "center"}}>
+                    {this.state.dateNow}
+                    </Text>
+                )}
             </View>
         );
     }
@@ -118,7 +153,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    margin: 10
+    margin: 10,
+    marginTop: 100
   },
 
   timerContainer: {
