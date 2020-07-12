@@ -9,18 +9,22 @@ export default class Timer extends React.Component {
         super()
         this.state = {
             timerRunning: false,
-            dateNow: currentDate
+            dateNow: currentDate,
+            display: false
         }
     }
 
     updateDate = () => {
-        
         const date = new Date().toString();
-
         this.setState( () => ({
             dateNow: date.substring(0,24)
         }))
+    }
 
+    toggleDisplay = () => {
+        this.setState( () => ({
+            display: !this.state.display
+        }))
     }
 
     componentDidMount() {
@@ -35,7 +39,11 @@ export default class Timer extends React.Component {
         return (
             <View style={{...styles.container}}>
                 <Text style={{...styles.text}}>{this.state.dateNow}</Text>
-                <Button title='Press'/>
+                <Button onPress={()=>this.toggleDisplay()} title='Press'/>
+                
+                {this.state.display 
+                ? <Text style={{...styles.text}}> Hi </Text>
+                : null}
             </View>
         );
     }
@@ -47,11 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    margin: 100
+    margin: 10
   },
 
   text: {
     color: 'white',
-    fontSize: 50
+    fontSize: 50,
+    marginTop: 100
   }
 });
