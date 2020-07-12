@@ -3,14 +3,15 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 const currentDate = new Date().toString().substring(0,24); 
 
-export default class Timer extends React.Component {
+export default class TimerContainer extends React.Component {
 
     constructor() {
         super()
         this.state = {
             timerRunning: false,
             dateNow: currentDate,
-            display: false
+            display: false,
+            displayMsg: 'Show'
         }
     }
 
@@ -23,7 +24,9 @@ export default class Timer extends React.Component {
 
     toggleDisplay = () => {
         this.setState( () => ({
-            display: !this.state.display
+            display: !this.state.display,
+            displayMsg: this.state.displayMsg=='Show' ? 'Hide' : 'Show',
+
         }))
     }
 
@@ -38,11 +41,22 @@ export default class Timer extends React.Component {
     render() {
         return (
             <View style={{...styles.container}}>
-                <Text style={{...styles.text}}>{this.state.dateNow}</Text>
-                <Button onPress={()=>this.toggleDisplay()} title='Press'/>
+                <Text style={{...styles.text}}>
+                    {this.state.dateNow}
+                </Text>
+                <Button 
+                    style={{...styles.button}}
+                    onPress={()=>this.toggleDisplay()} 
+                    title={this.state.displayMsg}
+                />
                 
                 {this.state.display 
-                ? <Text style={{...styles.text}}> Hi </Text>
+                ? (
+                    <Text style={{...styles.text}}>
+                        Select Your Timing
+                    </Text>
+                    
+                )
                 : null}
             </View>
         );
@@ -62,5 +76,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 50,
     marginTop: 100
+  },
+
+  button: {
+      backgroundColor: 'white',
+      borderColor: 'white',
+      color: 'pink'
   }
 });
