@@ -12,14 +12,17 @@ export default class TimerContainer extends React.Component {
             dateNow: currentDate,
             display: false,
             displayMsg: 'Show',
-            timerTime: 0
+            timerTime: 0,
+            workTime: 0,
+            breakTime: 0,
         }
     }
 
     updateDate = () => {
         const date = new Date().toString();
         this.setState( () => ({
-            dateNow: date.substring(0,24)
+            dateNow: date.substring(0,24),
+            timerTime: this.state.timerRunning  && this.state.timerTime > 0 ? this.state.timerTime-1 : this.state.timerTime
         }))
     }
 
@@ -34,12 +37,14 @@ export default class TimerContainer extends React.Component {
     resetTimer = () => {
         this.setState( () => ({
             timerTime: 0,
+            timerRunning: Boolean(false)
         }))
     }
 
     pauseTimer = () => {
         this.setState( () => ({
-            timerRunning: !this.state.display,
+            timerTime: !this.state.timerRunning ? this.state.workTime : this.state.timerTime,
+            timerRunning: !this.state.timerRunning,
         }))
     }
 
@@ -67,6 +72,7 @@ export default class TimerContainer extends React.Component {
                     <ScrollView 
                         contentContainerStyle={{...styles.timerContainer}}
                     >
+                        <Text style={{...styles.timerText}}>{this.state.timerTime}</Text>
                         <Text style={{...styles.text, marginTop: 30}}>
                             Select Your Timing
                         </Text>
@@ -126,6 +132,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 50,
     marginTop: 100
+  },
+
+  timerText: {
+    color: 'white',
+    fontSize: 100,
+    marginTop: 10
   },
 
   textInput: {
