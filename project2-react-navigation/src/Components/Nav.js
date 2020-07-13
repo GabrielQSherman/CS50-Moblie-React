@@ -1,14 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, createStackNavigator, createSwitchNavigator } from 'react-native';
+
+
+import HomeScreen from './Home'
+
+
+const stackNav = createStackNavigator({
+  "Home": HomeScreen,
+  "About": About
+})
+
+const appNav = createSwitchNavigator({
+  "Login": Login,
+  "Main": MyStackNav, 
+})
 
 export default class Nav extends React.Component {
 
     render () {
         return (
-            <View style={styles.container}>
-              <Text>Navigation</Text>
-            </View>
-          );
+          <View style={styles.container}>
+            
+            <Text>Navigation</Text>
+            <createStackNavigator/>
+            <createSwitchNavigator/>
+          </View>
+        );
     }
  
 }
