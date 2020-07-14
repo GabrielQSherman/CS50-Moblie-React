@@ -1,19 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
 
-export default class About extends React.Component {
-    constructor() {
-        super(),
-        this.state = {
-
-        }
-    }
-
-    render() {
-        return (
-            <View>
-                <Text>About</Text>
-            </View>
-        )
-    }
-} 
+export default function About({ navigation }) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>About</Text>
+        <Button
+          title="Go to Home"
+          onPress={() => navigation.navigate('Home')}
+        />
+      </View>
+    );
+}
