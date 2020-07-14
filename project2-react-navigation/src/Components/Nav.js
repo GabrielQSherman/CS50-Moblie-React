@@ -1,29 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView, createStackNavigator, createSwitchNavigator } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './Home'
+import HomeScreen from './Home';
+import About from './About';
 
+const Stack = createStackNavigator();
 
-const stackNav = createStackNavigator({
-  "Home": HomeScreen,
-  "About": About
-})
+function MainStack() {
+  return (
 
-const appNav = createSwitchNavigator({
-  "Login": Login,
-  "Main": MyStackNav, 
-})
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="About" component={About} />
+      </Stack.Navigator>
+    </NavigationContainer>
+
+  );
+}
+
+// const appNav = createSwitchNavigator({
+//   "Login": Login,
+//   "Main": MyStackNav, 
+// })
 
 export default class Nav extends React.Component {
 
     render () {
         return (
           <View style={styles.container}>
-            
-            <Text>Navigation</Text>
-            <createStackNavigator/>
-            <createSwitchNavigator/>
+            <MainStack/>
           </View>
         );
     }
